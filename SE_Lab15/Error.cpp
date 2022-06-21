@@ -13,7 +13,7 @@ namespace Error {
 		ERROR_ENTRY_NODEF10(10), ERROR_ENTRY_NODEF10(20), ERROR_ENTRY_NODEF10(30), ERROR_ENTRY_NODEF10(40), ERROR_ENTRY_NODEF10(50),
 		ERROR_ENTRY_NODEF10(60), ERROR_ENTRY_NODEF10(70), ERROR_ENTRY_NODEF10(80), ERROR_ENTRY_NODEF10(90),
 
-		ERROR_ENTRY(100, "Параметр -in должен быть задан!"),
+		ERROR_ENTRY(100, "Параметр -IN должен быть задан!"),
 
 		ERROR_ENTRY_NODEF(101), ERROR_ENTRY_NODEF(102), ERROR_ENTRY_NODEF(103),
 
@@ -21,8 +21,8 @@ namespace Error {
 
 		ERROR_ENTRY_NODEF(105), ERROR_ENTRY_NODEF(106), ERROR_ENTRY_NODEF(107), ERROR_ENTRY_NODEF(108), ERROR_ENTRY_NODEF(109),
 
-		ERROR_ENTRY(110, "Ошибка при открытии файла [-in]"),
-		ERROR_ENTRY(111, "Недопустимый символ в исходном файле [-in]"),
+		ERROR_ENTRY(110, "Ошибка при открытии файла [-IN]"),
+		ERROR_ENTRY(111, "Недопустимый символ в исходном файле [-IN]"),
 		ERROR_ENTRY(112, "Ошибка при создании файла протакола [-log]"),
 
 		ERROR_ENTRY_NODEF(113), ERROR_ENTRY_NODEF(114), ERROR_ENTRY_NODEF(115), 
