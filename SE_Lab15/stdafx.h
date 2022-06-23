@@ -7,8 +7,7 @@
 #include <fstream>
 #include <stdio.h>
 #include <conio.h>
+#include <time.h>
 
-#include "Error.h"
-#include "In.h"
 #include "Log.h"
-#include "Parm.h"
+

@@ -9,22 +9,19 @@ int _tmain(int argc, _TCHAR* argv[]) {
 
 	Parm::parm prm;
 	In::in inner;
+	Log::log lg = Log::initlog;
 
 	try
 	{
 		prm = Parm::getparm(argc, argv);
-
-		wcout << prm.in << endl;
-		wcout << prm.out << endl;
-		wcout << prm.log << endl << endl;
-
 		inner = In::getin(prm.in);
 
-		cout << inner.source_code << endl << endl;
+		In::WriteOut(inner, prm.out);
 
-		cout << "Кол-во символов: " << inner.size_of_code << endl;
-		cout << "Кол-во строк: " << inner.lines_count << endl;
-		cout << "Кол-во пропущенных: " << inner.count_of_ignore << endl;
+		lg = Log::getlog(prm.log);
+
+		Log::WriteLine(lg, (wchar_t*)L"Ora", (wchar_t*)L" Ора\n", (wchar_t*)L"");
+		Log::WriteLog(lg);
 	}
 	catch (Error::error err)
 	{
@@ -34,4 +31,6 @@ int _tmain(int argc, _TCHAR* argv[]) {
 		if (err.inext.col != -1 && err.inext.line != -1)
 			cout << "Строка: " << err.inext.line << " Позиция: " << err.inext.col << endl;
 	}
+
+	Log::Close(lg);
 }  

@@ -59,4 +59,17 @@ namespace In {
 
 		return res;
 	}
+
+	void WriteOut(in inner, wchar_t outpath[]) {
+
+		ofstream file(outpath);
+
+		if (!file.is_open()) throw ERROR_THROW(113);
+
+		file.clear();
+
+		file << inner.source_code;
+
+		file.close();
+	}
 }

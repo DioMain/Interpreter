@@ -24,8 +24,9 @@ namespace Error {
 		ERROR_ENTRY(110, "Ошибка при открытии файла [-IN]"),
 		ERROR_ENTRY(111, "Недопустимый символ в исходном файле [-IN]"),
 		ERROR_ENTRY(112, "Ошибка при создании файла протакола [-log]"),
+		ERROR_ENTRY(113, "Ошибка при создании файла результата трансляции [-out]"),
 
-		ERROR_ENTRY_NODEF(113), ERROR_ENTRY_NODEF(114), ERROR_ENTRY_NODEF(115), 
+		ERROR_ENTRY_NODEF(114), ERROR_ENTRY_NODEF(115), 
 		ERROR_ENTRY_NODEF(116), ERROR_ENTRY_NODEF(117), ERROR_ENTRY_NODEF(118), ERROR_ENTRY_NODEF(119),
 
 		ERROR_ENTRY_NODEF10(120), ERROR_ENTRY_NODEF10(130), ERROR_ENTRY_NODEF10(140), ERROR_ENTRY_NODEF10(150),
