@@ -19,7 +19,7 @@ namespace In {
 		{
 			file >> uchar >> noskipws;
 
-			if (file.eof()) break;
+			if (file.eof()) break;	//Проверяем не закончился ли фаил
 
 			switch (result.code_table[(int)uchar])
 			{
