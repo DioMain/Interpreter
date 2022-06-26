@@ -14,7 +14,7 @@ namespace Log {
 		std::ofstream* log_stream;
 	};
 
-	static const log initlog { L"", NULL};
+	static const log initlog { L"", nullptr};
 
 	log getlog(wchar_t logpath[]);
 

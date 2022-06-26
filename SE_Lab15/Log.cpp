@@ -60,13 +60,11 @@ namespace Log {
 
 	void WriteLog(log lg)
 	{
-		time_t* tim = new time_t();
-
-		*tim = time(0);
+		time_t tim = time(0);
 
 		tm *realtime = new tm(); 
 
-		localtime_s(realtime, tim);
+		localtime_s(realtime, &tim);
 
 		char* buf = new char[200];
 
@@ -90,6 +88,6 @@ namespace Log {
 
 	void Close(log lg)
 	{
-		if (lg.log_stream->is_open()) lg.log_stream->close();
+		if (lg.log_stream != nullptr && lg.log_stream->is_open()) lg.log_stream->close();
 	}
 }

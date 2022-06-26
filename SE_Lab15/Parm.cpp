@@ -2,167 +2,64 @@
 
 using namespace std;
 
-namespace Parm {
-
-	bool CheckEnd(const wchar_t str[], const wchar_t end[]) {
-		wstring data;
-
-		int strlen = wcslen(str);
-		int endlen = wcslen(end);
-
-		bool dot = false;
-
-		for (int i = 0; i < strlen; i++)
-		{
-			if (str[i] == L'.') dot = true;
-
-			if (dot) data.push_back(str[i]);
-		}
-
-		return (wcscmp(data.c_str(), end) == 0);
-	}
-
+namespace Parm {		
 	parm getparm(int argc, _TCHAR* argv[])
 	{
-		parm pr = parm();
+		parm result;
 
-		bool In = false, Out = false, Log = false;
+		bool parm_1 = false;
+		bool parm_2 = false;
+		bool parm_3 = false;
 
-		wchar_t prstr[PARM_MAX_SIZE];
-		wstring data;
+		// Нахождение параметра
+		for (int i = 0; i < argc; i++) {
+			// Для In
+			if (wcsstr(argv[i], PARM_IN)) {
+				if (wcslen(argv[i]) > PARM_MAX_SIZE) throw ERROR_THROW(104);
 
-		// Сканирование параментров
-		for (int i = 1; i < argc; i++)
-		{
-			data.clear();
+				parm_1 = true;
 
-			wcscpy_s(prstr, argv[i]);		
-
-			for (int j = 0; prstr[j] != L':' && prstr[j] != L'\0'; j++)
-			{
-				data.push_back(prstr[j]);
+				wcscpy_s(result.in, argv[i] + 4);
 			}
+			// Для Out
+			else if (wcsstr(argv[i], PARM_OUT)) {
+				if (wcslen(argv[i]) > PARM_MAX_SIZE) throw ERROR_THROW(104);
 
-			data.push_back(L':');
+				parm_2 = true;
 
-			if (data == PARM_IN) In = true;
-			if (data == PARM_OUT) Out = true;
-			if (data == PARM_LOG) Log = true;
-		}
+				wcscpy_s(result.out, argv[i] + 5);
+			}
+			// Для Log
+			else if (wcsstr(argv[i], PARM_LOG)) {
+				if (wcslen(argv[i]) > PARM_MAX_SIZE) throw ERROR_THROW(104);
 
-		if (!In) throw ERROR_THROW(100);
+				parm_3 = true;
 
-		// Проверка на размер
-		for (int i = 1; i < argc; i++)
-		{
-			if (wcslen(argv[i]) > PARM_MAX_SIZE) throw ERROR_THROW(104);
-		}
-
-		data.clear();
-
-		// Заполнение in
-		if (In) {
-			for (int i = 1; i < argc; i++)
-			{
-				wcscpy_s(prstr, argv[i]);
-
-				for (int j = 0; prstr[j] != L':' && prstr[j] != L'\0'; j++)
-				{
-					data.push_back(prstr[j]);
-				}
-
-				data.push_back(L':');
-
-				if (data == PARM_IN) {
-
-					data.clear();
-
-					for (int j = 4; prstr[j] != L'\0'; j++)
-					{
-						data.push_back(prstr[j]);
-					}
-
-					break;
-				}
+				wcscpy_s(result.log, argv[i] + 5);
 			}
 		}
 
-		wcscpy_s(pr.in, data.c_str());
+		// Если нет In то ошибка
+		if (parm_1 == false) throw ERROR_THROW(100);
 
-		data.clear();
-
-		// Заполнение out
-		if (Out) {
-			for (int i = 1; i < argc; i++)
-			{
-				data.clear();
-
-				wcscpy_s(prstr, argv[i]);
-
-				for (int j = 0; prstr[j] != L':' && prstr[j] != L'\0'; j++)
-				{
-					data.push_back(prstr[j]);
-				}
-
-				data.push_back(L':');
-
-				if (data == PARM_OUT) {
-
-					data.clear();
-
-					for (int j = 5; prstr[j] != L'\0'; j++)
-					{
-						data.push_back(prstr[j]);
-					}
-
-					if (!CheckEnd(data.c_str(), PARM_OUT_DEF_EXT)) data.append(PARM_OUT_DEF_EXT);
-
-					break;
-				}
-			}
+		// Если нет Out то создать по умолчанию
+		if (parm_2 == false) {
+			wcscpy_s(result.out, L"Result");
+			wcsncat_s(result.out, PARM_OUT_DEF_EXT, 4);
 		}
+		// Если у out файла не указано расширение
+		else if (!wcsstr(result.out, L"."))
+			wcsncat_s(result.out, PARM_OUT_DEF_EXT, 4);
 
-		if (!Out || data.size() == 0) { data.append(L"Result"); data.append(PARM_OUT_DEF_EXT); }
-
-		wcscpy_s(pr.out, data.c_str());
-
-		data.clear();
-
-		// Заполнение log
-		if (Log) {
-			for (int i = 1; i < argc; i++)
-			{
-				data.clear();
-
-				wcscpy_s(prstr, argv[i]);
-
-				for (int j = 0; prstr[j] != L':' && prstr[j] != L'\0'; j++)
-				{
-					data.push_back(prstr[j]);
-				}
-
-				data.push_back(L':');
-
-				if (data == PARM_LOG) {
-
-					data.clear();
-
-					for (int j = 5; prstr[j] != L'\0'; j++)
-					{
-						data.push_back(prstr[j]);
-					}
-
-					if (!CheckEnd(data.c_str(), PARM_LOG_DEF_EXT)) data.append(PARM_LOG_DEF_EXT);
-
-					break;
-				}
-			}
+		// Если нет Log то создать по умолчанию
+		if (parm_3 == false) {
+			wcscpy_s(result.log, L"Log");
+			wcsncat_s(result.log, PARM_LOG_DEF_EXT, 4);
 		}
+		// Если у log файла не указано расширение
+		else if (!wcsstr(result.log, L"."))
+			wcsncat_s(result.log, PARM_LOG_DEF_EXT, 4);
 
-		if (!Log || data.size() == 0) { data.append(L"Log"); data.append(PARM_LOG_DEF_EXT); }
-
-		wcscpy_s(pr.log, data.c_str());
-
-		return pr;
+		return result;
 	}
 }
