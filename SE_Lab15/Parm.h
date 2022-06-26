@@ -20,9 +20,6 @@ namespace Parm {
 		wchar_t log[PARM_MAX_SIZE];
 	};
 
-	// Проверяет то ли окончание у строки
-	bool CheckEnd(const wchar_t str[], const wchar_t end[]);
-
 	// Формирует parm
 	parm getparm(int argc, _TCHAR* argv[]);
 }
